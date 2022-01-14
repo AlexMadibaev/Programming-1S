@@ -1,0 +1,32 @@
+name: Build and test labs
+
+on:
+  push:
+    branches: [ MAINFRAME ]
+  pull_request:
+    branches: [ MAINFRAME ]
+  
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Run test for Lab 1
+      working-directory: Lab1
+      run: ./test.sh
+      
+    - name: Run test for Lab 2
+      working-directory: Lab2
+      run: ./test.sh
+      
+    - name: Run test for Lab 3
+      working-directory: Lab3
+      run: |
+        rm NASA_access_log_Jul95
+        wget -q https://github.com/AlexMadibaev/Programming-1S/new/MAINFRAME
+        ./test.sh
